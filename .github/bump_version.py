@@ -8,20 +8,36 @@ from pathlib import Path
 
 # Get latest tag (v0.1.0 if none)
 def get_latest_version():
+    """
+    Return the latest version tag (by version order, not reachability).
+    Falls back to '0.1.0' if no tags exist.
+    """
     try:
-        tag = subprocess.check_output(['git', 'describe', '--tags', '--abbrev=0'], encoding='utf-8').strip()
+        tag = subprocess.check_output(
+            "git tag --list --sort=-v:refname | head -n1",
+            shell=True,
+            encoding='utf-8'
+        ).strip()
         if tag.startswith('v'):
             tag = tag[1:]
-        return tag
+        return tag if tag else '0.1.0'
     except subprocess.CalledProcessError:
         return '0.1.0'
 
 def bump_patch(version):
+    """
+    Given a version string 'X.Y.Z', return the next patch version as a string.
+    """
     major, minor, patch = map(int, version.split('.'))
     patch += 1
     return f"{major}.{minor}.{patch}"
 
 def update_file_version(filepath, new_version):
+    """
+    Update the version string in the given file to new_version.
+    Handles both setup.py and __init__.py version formats.
+    Returns True if a version was updated, else False.
+    """
     text = Path(filepath).read_text(encoding='utf-8')
     # setup.py: version="..."
     text, n = re.subn(r'version\s*=\s*[\'"]([0-9]+\.[0-9]+\.[0-9]+)[\'"]', f'version="{new_version}"', text)
@@ -31,9 +47,13 @@ def update_file_version(filepath, new_version):
     return n or m
 
 def get_code_version():
+    """
+    Extract and return the __version__ string from x-delete-posts/xcleaner/__init__.py.
+    Returns None if not found.
+    """
     init_path = Path('x-delete-posts/xcleaner/__init__.py')
     text = init_path.read_text(encoding='utf-8')
-    m = re.search(r'__version__\s*=\s*[\'\"]([0-9]+\.[0-9]+\.[0-9]+)[\'\"]', text)
+    m = re.search(r'__version__\s*=\s*[\"\']([0-9]+\.[0-9]+\.[0-9]+)[\"\']', text)
     if m:
         return m.group(1)
     return None
