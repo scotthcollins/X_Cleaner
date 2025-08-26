@@ -133,7 +133,7 @@ jobs:
           git add x-delete-posts/setup.py x-delete-posts/xcleaner/__init__.py
           git commit -m "Bump version to ${{ steps.get_version.outputs.version }}" || echo "No changes to commit"
           git push || echo "No changes to push"
-
+      
       - name: Clean dist directory
         run: |
           cd x-delete-posts
@@ -151,6 +151,15 @@ jobs:
         run: |
           cd x-delete-posts
           twine upload dist/* --verbose
+
+      - name: Tag and push new version
+        if: success() && github.ref == 'refs/heads/main'
+        run: |
+          VERSION=$(python -c "import sys; sys.path.insert(0, 'x-delete-posts'); import xcleaner; print(xcleaner.__version__)")
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git tag v$VERSION
+          git push origin v$VERSION
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
