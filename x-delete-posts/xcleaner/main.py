@@ -49,7 +49,8 @@ def get_x_credentials(parsed_args):
     # Validate that none are null or empty
     if not all([api_key, api_secret_key, access_token, access_token_secret]):
         print(
-            "Error: All X API credentials must be provided via environment variables or command line arguments."
+            "Error: All X API credentials must be provided via environment variables "
+            "or command line arguments."
         )
         sys.exit(1)
     return api_key, api_secret_key, access_token, access_token_secret
@@ -75,12 +76,15 @@ def main():
             delete_posts_from_json(parsed_args.json, x_api)
         else:
             print(
-                "No API credentials provided. Listing post IDs from JSON:"
+                "No API credentials provided. "
+                "Listing post IDs from JSON:"
             )
             delete_posts_from_json(parsed_args.json, x_api=None)
     else:
         api_key, api_secret_key, access_token, access_token_secret = get_x_credentials(parsed_args)
-        x_api = authenticate_x(api_key, api_secret_key, access_token, access_token_secret)
+        x_api = authenticate_x(
+            api_key, api_secret_key, access_token, access_token_secret
+        )
         delete_all_x_posts(x_api)
 
 
