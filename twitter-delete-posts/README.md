@@ -1,6 +1,6 @@
 # Twitter Delete Posts
 
-This project is a standalone Python script that allows users to delete all their Twitter posts. It utilizes the Twitter API to authenticate the user, retrieve their tweets, and delete them as needed.
+This project is a standalone Python script that allows users to delete all their X (formerly Twitter) posts. It utilizes the X API to authenticate the user, retrieve their posts, and delete them as needed.
 
 ## Project Structure
 
@@ -8,7 +8,7 @@ This project is a standalone Python script that allows users to delete all their
 twitter-delete-posts
 ├── .gitignore
 ├── .venv/
-├── delete_tweets.py
+├── delete_posts.py
 ├── requirements.txt
 └── README.md
 ```
@@ -51,11 +51,11 @@ Before running the script, ensure you have the following:
 
 ## Usage
 
-1. Open `delete_tweets.py` and enter your Twitter API credentials.
+1. Open `delete_posts.py` and enter your X API credentials.
 2. Run the script:
 
    ```bash
-   python delete_tweets.py
+   python delete_posts.py
    ```
 
-**Warning:** This script will permanently delete all your tweets. Use with caution!
+**Warning:** This script will permanently delete all your posts. Use with caution!

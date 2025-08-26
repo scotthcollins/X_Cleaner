@@ -1,3 +1,4 @@
+def delete_all_x_posts(api):
 import tweepy
 
 def delete_all_x_posts(api):

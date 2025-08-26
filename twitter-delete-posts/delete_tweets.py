@@ -1,16 +1,16 @@
 # Instructions to run the script:
 # 1. Set your X API credentials as environment variables or pass them as command line arguments.
-# 2. Run the script using Python: python delete_tweets.py
-# Note: Be cautious as this will permanently delete all your tweets.
+# 2. Run the script using Python: python delete_posts.py
+# Note: Be cautious as this will permanently delete all your posts.
 # Example using environment variables in Windows PowerShell:
 # $env:X_API_KEY="your_api_key"
 # $env:X_API_SECRET_KEY="your_api_secret_key"
 # $env:X_ACCESS_TOKEN="your_access_token"
 # $env:X_ACCESS_TOKEN_SECRET="your_access_token_secret"
-# python delete_tweets.py
+# python delete_posts.py
 
 # Example using command line arguments:
-# python delete_tweets.py 
+# python delete_posts.py 
 #   --api-key your_api_key 
 #   --api-secret-key your_api_secret_key 
 #   --access-token your_access_token 
@@ -29,7 +29,7 @@ def get_args():
     parser.add_argument('--api-secret-key', help='X API Secret Key')
     parser.add_argument('--access-token', help='X Access Token')
     parser.add_argument('--access-token-secret', help='X Access Token Secret')
-    parser.add_argument('--json', help='Path to X archive JSON file (tweet.js or tweets.json)')
+    parser.add_argument('--json', help='Path to X archive JSON file (post.js or posts.json)')
     args = parser.parse_args()
     return args
 
@@ -48,15 +48,15 @@ def delete_posts_from_json(json_path, x_api=None):
     import json
     with open(json_path, encoding='utf-8') as jsonfile:
         data = json.load(jsonfile)
-        # X archive JSON may be a list or a dict with a 'tweets' key
-        posts = data.get('tweets') if isinstance(data, dict) and 'tweets' in data else data
+        # X archive JSON may be a list or a dict with a 'posts' key
+        posts = data.get('posts') if isinstance(data, dict) and 'posts' in data else data
         for post in posts:
             post_id = None
             # X archive formats may vary
             if isinstance(post, dict):
                 post_id = post.get('id') or post.get('id_str')
-                if not post_id and 'tweet' in post:
-                    post_id = post['tweet'].get('id') or post['tweet'].get('id_str')
+                if not post_id and 'post' in post:
+                    post_id = post['post'].get('id') or post['post'].get('id_str')
             if post_id and x_api:
                 try:
                     print(f"Deleting post ID: {post_id}")
