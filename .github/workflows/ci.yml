@@ -25,7 +25,8 @@ jobs:
 
       - name: Test application setup (import main modules)
         run: |
-          python -c "import xcleaner.main; import xcleaner.delete_all_x_posts; import xcleaner.authenticate_x"
+          PYTHONPATH=x-delete-posts python -c "import xcleaner.main; import xcleaner.delete_all_x_posts; import xcleaner.authenticate_x"
+        shell: bash
   build:
     strategy:
       matrix:
@@ -92,7 +93,8 @@ jobs:
 
       - name: Run unit tests
         run: |
-          python -m unittest discover -s x-delete-posts/tests
+          PYTHONPATH=x-delete-posts python -m unittest discover -s x-delete-posts/tests
+        shell: bash
 
   release:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push' && needs.test.result == 'success'
