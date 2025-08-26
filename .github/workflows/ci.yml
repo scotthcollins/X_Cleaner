@@ -150,7 +150,7 @@ jobs:
           TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         run: |
           cd x-delete-posts
-          twine upload dist/*
+          twine upload dist/* --verbose
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
