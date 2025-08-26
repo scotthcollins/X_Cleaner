@@ -1,9 +1,7 @@
-
-
+import pytest
+from xcleaner.authenticate_x import authenticate_x
 import sys
 import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'xcleaner')))
-from authenticate_x import authenticate_x
 
 
 def test_authenticate_x(monkeypatch):

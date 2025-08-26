@@ -5,6 +5,11 @@ setup(
     version="0.1.0",
     description="Delete all posts from your X (formerly Twitter) account.",
     author="Scott H. Collins",
+    author_email="scotthcollins@outlook.com",
+    url="https://www.linkedin.com/in/scotthcollins/",
+    project_urls={
+        "LinkedIn": "https://www.linkedin.com/in/scotthcollins/"
+    },
     packages=find_packages(),
     install_requires=[
         "tweepy",
