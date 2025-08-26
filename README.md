@@ -2,7 +2,38 @@
 
 # X_Cleaner
 
+
 ![Build Status](https://github.com/scotthcollins/X_Cleaner/actions/workflows/ci.yml/badge.svg?branch=main)
+
+## Installation from PyPI
+
+You can install the latest release directly from PyPI:
+
+```sh
+pip install xcleaner
+```
+
+## Usage
+
+After installing, you can use the CLI tool:
+
+```sh
+xcleaner --api-key <your_key> --api-secret-key <your_secret> --access-token <your_token> --access-token-secret <your_token_secret>
+```
+
+Or set your credentials as environment variables and simply run:
+
+```sh
+xcleaner
+```
+
+You can also delete posts from a JSON archive:
+
+```sh
+xcleaner --json path/to/posts.json [--api-key ...]
+```
+
+**Warning:** This script will permanently delete all posts from your account. Use with caution!
 
 ![PyPI](https://img.shields.io/pypi/v/xcleaner?color=blue)
 

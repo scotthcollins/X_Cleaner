@@ -96,6 +96,7 @@ jobs:
           cd x-delete-posts
           python -m pytest tests -v
 
+
   release:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push' && needs.test.result == 'success'
     needs: test
@@ -113,6 +114,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r x-delete-posts/requirements.txt
+          pip install build twine
 
       - name: Bump version
         run: |
@@ -130,6 +132,19 @@ jobs:
           git add x-delete-posts/setup.py x-delete-posts/xcleaner/__init__.py
           git commit -m "Bump version to ${{ steps.get_version.outputs.version }}" || echo "No changes to commit"
           git push || echo "No changes to push"
+
+      - name: Build package
+        run: |
+          cd x-delete-posts
+          python -m build
+
+      - name: Publish to PyPI
+        env:
+          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        run: |
+          cd x-delete-posts
+          twine upload dist/*
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
