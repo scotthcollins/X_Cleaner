@@ -1,14 +1,17 @@
-# Twitter Delete Posts
+twitter-delete-posts
+
+# X Delete Posts
 
 This project is a standalone Python script that allows users to delete all their X (formerly Twitter) posts. It utilizes the X API to authenticate the user, retrieve their posts, and delete them as needed.
 
 ## Project Structure
 
 ```
-twitter-delete-posts
-├── .gitignore
+x-delete-posts/
 ├── .venv/
-├── delete_posts.py
+├── authenticate_x.py
+├── delete_all_x_posts.py
+├── main.py
 ├── requirements.txt
 └── README.md
 ```
@@ -18,7 +21,7 @@ twitter-delete-posts
 Before running the script, ensure you have the following:
 
 - Python 3.x installed on your machine.
-- A Twitter Developer account and a project set up to obtain your API keys.
+- An X Developer account and a project set up to obtain your API keys.
 
 ## Setup Instructions
 
@@ -26,7 +29,7 @@ Before running the script, ensure you have the following:
 
    ```bash
    git clone <repository-url>
-   cd twitter-delete-posts
+   cd x-delete-posts
    ```
 
 2. **Create a virtual environment:**
@@ -42,6 +45,9 @@ Before running the script, ensure you have the following:
      .venv\Scripts\activate
      ```
    - On macOS/Linux:
+     ```bash
+     source .venv/bin/activate
+     ```
 
 4. **Install the required dependencies:**
 
@@ -51,11 +57,11 @@ Before running the script, ensure you have the following:
 
 ## Usage
 
-1. Open `delete_posts.py` and enter your X API credentials.
+1. Open `main.py` and enter your X API credentials, or provide them as environment variables or command line arguments.
 2. Run the script:
 
    ```bash
-   python delete_posts.py
+   python main.py
    ```
 
 **Warning:** This script will permanently delete all your posts. Use with caution!

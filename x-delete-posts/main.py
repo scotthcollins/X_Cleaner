@@ -4,17 +4,17 @@ X_Cleaner: Delete all posts from your X (formerly Twitter) account.
 
 Instructions:
 1. Set your X API credentials as environment variables or pass them as command line arguments.
-2. Run the script using Python: python delete_posts.py
+2. Run the script using Python: python main.py
 Note: Be cautious as this will permanently delete all your posts.
 Example using environment variables in Windows PowerShell:
     $env:X_API_KEY="your_api_key"
     $env:X_API_SECRET_KEY="your_api_secret_key"
     $env:X_ACCESS_TOKEN="your_access_token"
     $env:X_ACCESS_TOKEN_SECRET="your_access_token_secret"
-    python delete_posts.py
+    python main.py
 
 Example using command line arguments:
-    python delete_posts.py \
+    python main.py \
         --api-key your_api_key \
         --api-secret-key your_api_secret_key \
         --access-token your_access_token \
