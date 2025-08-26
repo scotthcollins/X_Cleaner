@@ -17,7 +17,9 @@ def delete_all_x_posts(api):
                 )
                 api.destroy_status(post.id)
             except Exception as err:  # pylint: disable=broad-exception-caught
-                print(f'Error deleting post ID {post.id}: {err}')
+                print(
+                    f'Error deleting post ID {post.id}: {err}'
+                )
         posts = api.user_timeline(count=200, tweet_mode='extended')
 
 def delete_posts_from_json(json_path, x_api=None):
