@@ -1,9 +1,9 @@
 
+
 import sys
 import os
-import pytest
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from xcleaner.delete_all_x_posts import delete_posts_from_json
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'xcleaner')))
+from delete_all_x_posts import delete_posts_from_json
 
 def test_delete_posts_from_json_prints_ids(capsys):
     # Simulate a JSON file with two posts
