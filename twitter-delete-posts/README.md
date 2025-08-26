@@ -42,9 +42,6 @@ Before running the script, ensure you have the following:
      .venv\Scripts\activate
      ```
    - On macOS/Linux:
-     ```bash
-     source .venv/bin/activate
-     ```
 
 4. **Install the required dependencies:**
 

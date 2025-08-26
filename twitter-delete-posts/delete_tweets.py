@@ -1,12 +1,12 @@
 # Instructions to run the script:
-# 1. Set your Twitter API credentials as environment variables or pass them as command line arguments.
+# 1. Set your X API credentials as environment variables or pass them as command line arguments.
 # 2. Run the script using Python: python delete_tweets.py
 # Note: Be cautious as this will permanently delete all your tweets.
 # Example using environment variables in Windows PowerShell:
-# $env:TWITTER_API_KEY="your_api_key"
-# $env:TWITTER_API_SECRET_KEY="your_api_secret_key"
-# $env:TWITTER_ACCESS_TOKEN="your_access_token"
-# $env:TWITTER_ACCESS_TOKEN_SECRET="your_access_token_secret"
+# $env:X_API_KEY="your_api_key"
+# $env:X_API_SECRET_KEY="your_api_secret_key"
+# $env:X_ACCESS_TOKEN="your_access_token"
+# $env:X_ACCESS_TOKEN_SECRET="your_access_token_secret"
 # python delete_tweets.py
 
 # Example using command line arguments:
@@ -19,31 +19,69 @@
 import os
 import sys
 import argparse
-from authenticate_twitter import authenticate_twitter
-from delete_all_tweets import delete_all_tweets
+from authenticate_x import authenticate_x
+from delete_all_x_posts import delete_all_x_posts
 
 
-def get_twitter_credentials():
-    parser = argparse.ArgumentParser(description="Delete all tweets from your X (Twitter) account.")
-    parser.add_argument('--api-key', help='Twitter API Key')
-    parser.add_argument('--api-secret-key', help='Twitter API Secret Key')
-    parser.add_argument('--access-token', help='Twitter Access Token')
-    parser.add_argument('--access-token-secret', help='Twitter Access Token Secret')
+def get_args():
+    parser = argparse.ArgumentParser(description="Delete all posts from your X (formerly Twitter) account.")
+    parser.add_argument('--api-key', help='X API Key')
+    parser.add_argument('--api-secret-key', help='X API Secret Key')
+    parser.add_argument('--access-token', help='X Access Token')
+    parser.add_argument('--access-token-secret', help='X Access Token Secret')
+    parser.add_argument('--json', help='Path to X archive JSON file (tweet.js or tweets.json)')
     args = parser.parse_args()
+    return args
 
-    api_key = args.api_key or os.getenv('TWITTER_API_KEY')
-    api_secret_key = args.api_secret_key or os.getenv('TWITTER_API_SECRET_KEY')
-    access_token = args.access_token or os.getenv('TWITTER_ACCESS_TOKEN')
-    access_token_secret = args.access_token_secret or os.getenv('TWITTER_ACCESS_TOKEN_SECRET')
-
+def get_x_credentials(args):
+    api_key = args.api_key or os.getenv('X_API_KEY')
+    api_secret_key = args.api_secret_key or os.getenv('X_API_SECRET_KEY')
+    access_token = args.access_token or os.getenv('X_ACCESS_TOKEN')
+    access_token_secret = args.access_token_secret or os.getenv('X_ACCESS_TOKEN_SECRET')
     # Validate that none are null or empty
     if not all([api_key, api_secret_key, access_token, access_token_secret]):
-        print("Error: All Twitter API credentials must be provided via environment variables or command line arguments.")
+        print("Error: All X API credentials must be provided via environment variables or command line arguments.")
         sys.exit(1)
     return api_key, api_secret_key, access_token, access_token_secret
 
+def delete_posts_from_json(json_path, x_api=None):
+    import json
+    with open(json_path, encoding='utf-8') as jsonfile:
+        data = json.load(jsonfile)
+        # X archive JSON may be a list or a dict with a 'tweets' key
+        posts = data.get('tweets') if isinstance(data, dict) and 'tweets' in data else data
+        for post in posts:
+            post_id = None
+            # X archive formats may vary
+            if isinstance(post, dict):
+                post_id = post.get('id') or post.get('id_str')
+                if not post_id and 'tweet' in post:
+                    post_id = post['tweet'].get('id') or post['tweet'].get('id_str')
+            if post_id and x_api:
+                try:
+                    print(f"Deleting post ID: {post_id}")
+                    x_api.destroy_status(post_id)
+                except Exception as e:
+                    print(f"Error deleting post ID {post_id}: {e}")
+            elif post_id:
+                print(f"Post ID: {post_id}")
+            else:
+                print(f"Post ID not found in entry: {post}")
+
 if __name__ == "__main__":
-    API_KEY, API_SECRET_KEY, ACCESS_TOKEN, ACCESS_TOKEN_SECRET = get_twitter_credentials()
-    twitter_api = authenticate_twitter(API_KEY, API_SECRET_KEY, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
-    delete_all_tweets(twitter_api)
+    args = get_args()
+    if args.json:
+        # Use API credentials if provided, otherwise just print post IDs
+        if any([args.api_key, args.api_secret_key, args.access_token, args.access_token_secret]) or \
+           all([os.getenv('X_API_KEY'), os.getenv('X_API_SECRET_KEY'), os.getenv('X_ACCESS_TOKEN'), os.getenv('X_ACCESS_TOKEN_SECRET')]):
+            API_KEY, API_SECRET_KEY, ACCESS_TOKEN, ACCESS_TOKEN_SECRET = get_x_credentials(args)
+            x_api = authenticate_x(API_KEY, API_SECRET_KEY, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+            delete_posts_from_json(args.json, x_api)
+        else:
+            print("No API credentials provided. Listing post IDs from JSON:")
+            delete_posts_from_json(args.json, x_api=None)
+    else:
+        API_KEY, API_SECRET_KEY, ACCESS_TOKEN, ACCESS_TOKEN_SECRET = get_x_credentials(args)
+        x_api = authenticate_x(API_KEY, API_SECRET_KEY, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+        delete_all_x_posts(x_api)
 
