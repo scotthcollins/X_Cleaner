@@ -1,6 +1,8 @@
 
 # X_Cleaner
 
+![PyPI](https://img.shields.io/pypi/v/xcleaner?color=blue)
+
 Delete all posts from your X (formerly Twitter) account using a simple Python CLI.
 
 ## Features
@@ -28,7 +30,13 @@ Delete all posts from your X (formerly Twitter) account using a simple Python CL
 	pip install -r requirements.txt
 	```
 
+
 ## Usage
+
+### Install from PyPI
+```sh
+pip install xcleaner
+```
 
 ### Option 1: Using Environment Variables
 ```powershell
@@ -72,4 +80,5 @@ Scott H. Collins
 **This script will permanently delete all posts from your account. Use with caution!**
 
 ## License
-MIT License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
