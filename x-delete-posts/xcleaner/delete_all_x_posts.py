@@ -12,7 +12,8 @@ def delete_all_x_posts(api):
         for post in posts:
             try:
                 print(
-                    f'Deleting post ID: {post.id} - {post.full_text}'
+                    f'Deleting post ID: {post.id} - '
+                    f'{post.full_text}'
                 )
                 api.destroy_status(post.id)
             except Exception as err:  # pylint: disable=broad-exception-caught

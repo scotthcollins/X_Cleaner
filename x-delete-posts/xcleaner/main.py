@@ -73,7 +73,9 @@ def main():
             x_api = authenticate_x(
                 api_key, api_secret_key, access_token, access_token_secret
             )
-            delete_posts_from_json(parsed_args.json, x_api)
+            delete_posts_from_json(
+                parsed_args.json, x_api
+            )
         else:
             print(
                 "No API credentials provided. "
