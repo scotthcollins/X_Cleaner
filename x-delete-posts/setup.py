@@ -2,8 +2,8 @@
 Setup script for the xcleaner package.
 This script configures the package metadata and installation for PyPI and pip.
 """
-from setuptools import setup, find_packages
 import os
+from setuptools import setup, find_packages
 
 def readme():
     """Read and return the contents of README.md for the long_description."""
