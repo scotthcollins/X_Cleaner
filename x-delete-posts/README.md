@@ -1,4 +1,3 @@
-
 # X Cleaner
 
 Delete all posts from your X (formerly Twitter) account using a simple Python CLI.

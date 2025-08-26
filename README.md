@@ -1,4 +1,3 @@
-
 # X_Cleaner
 
 ![Build Status](https://github.com/scotthcollins/X_Cleaner/actions/workflows/ci.yml/badge.svg?branch=main)
