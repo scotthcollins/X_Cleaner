@@ -24,8 +24,8 @@ Example using command line arguments:
 import os
 import sys
 import argparse
-from xcleaner.authenticate_x import authenticate_x
-from xcleaner.delete_all_x_posts import delete_all_x_posts, delete_posts_from_json
+from .authenticate_x import authenticate_x
+from .delete_all_x_posts import delete_all_x_posts, delete_posts_from_json
 
 
 def get_args():
