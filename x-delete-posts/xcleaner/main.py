@@ -69,7 +69,9 @@ def main():
             os.getenv('X_ACCESS_TOKEN'), os.getenv('X_ACCESS_TOKEN_SECRET')
         ]):
             api_key, api_secret_key, access_token, access_token_secret = get_x_credentials(parsed_args)
-            x_api = authenticate_x(api_key, api_secret_key, access_token, access_token_secret)
+            x_api = authenticate_x(
+                api_key, api_secret_key, access_token, access_token_secret
+            )
             delete_posts_from_json(parsed_args.json, x_api)
         else:
             print(

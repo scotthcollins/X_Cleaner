@@ -11,7 +11,9 @@ def delete_all_x_posts(api):
     while posts:
         for post in posts:
             try:
-                print(f'Deleting post ID: {post.id} - {post.full_text}')  # noqa: E501
+                print(
+                    f'Deleting post ID: {post.id} - {post.full_text}'
+                )
                 api.destroy_status(post.id)
             except Exception as err:  # pylint: disable=broad-exception-caught
                 print(f'Error deleting post ID {post.id}: {err}')

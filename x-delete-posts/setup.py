@@ -4,7 +4,7 @@ setup(
     name="xcleaner",
     version="0.1.0",
     description="Delete all posts from your X (formerly Twitter) account.",
-    author="Your Name",
+    author="Scott H. Collins",
     packages=find_packages(),
     install_requires=[
         "tweepy",
