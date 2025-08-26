@@ -1,5 +1,9 @@
+
+import sys
+import os
 import pytest
-from xcleaner import authenticate_x
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from xcleaner.authenticate_x import authenticate_x
 
 def test_authenticate_x(monkeypatch):
     class DummyAuth:
