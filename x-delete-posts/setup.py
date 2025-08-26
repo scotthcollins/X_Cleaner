@@ -6,7 +6,8 @@ import os
 from setuptools import setup, find_packages
 
 def readme():
-    """Read and return the contents of README.md for the long_description."""
+    """Read and return the contents of x-delete-posts/README.md for the long_description."""
+    # This ensures the correct README is used for PyPI (not the root README.md)
     with open(os.path.join(os.path.dirname(__file__), 'README.md'), encoding='utf-8') as f:
         return f.read()
 
@@ -25,6 +26,7 @@ setup(
     version=get_version(),
     description="Delete all posts from your X (formerly Twitter) account.",
     long_description=readme(),
+    long_description_content_type="text/markdown",
     author="Scott H. Collins",
     author_email="scotthcollins@outlook.com",
     url="https://www.linkedin.com/in/scotthcollins/",
