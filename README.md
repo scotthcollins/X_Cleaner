@@ -3,7 +3,13 @@
 # X_Cleaner
 
 
+
 ![Build Status](https://github.com/scotthcollins/X_Cleaner/actions/workflows/ci.yml/badge.svg?branch=main)
+![PyPI](https://img.shields.io/pypi/v/xcleaner?color=blue)
+
+## Author
+Scott H. Collins  
+[LinkedIn](https://www.linkedin.com/in/scotthcollins/)
 
 ## Installation from PyPI
 
@@ -38,10 +44,6 @@ xcleaner --json path/to/posts.json [--api-key ...]
 ![PyPI](https://img.shields.io/pypi/v/xcleaner?color=blue)
 
 Delete all posts from your X (formerly Twitter) account using a simple Python CLI.
-
-## Author
-Scott H. Collins  
-[LinkedIn](https://www.linkedin.com/in/scotthcollins/)
 
 ## Features
 - Delete all posts (tweets) from your X account using the X API

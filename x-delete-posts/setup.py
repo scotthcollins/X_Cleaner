@@ -1,11 +1,17 @@
+"""
+Setup script for the xcleaner package.
+This script configures the package metadata and installation for PyPI and pip.
+"""
 from setuptools import setup, find_packages
 import os
 
 def readme():
+    """Read and return the contents of README.md for the long_description."""
     with open(os.path.join(os.path.dirname(__file__), 'README.md'), encoding='utf-8') as f:
         return f.read()
 
 def get_version():
+    """Extract the __version__ string from xcleaner/__init__.py."""
     version_file = os.path.join(os.path.dirname(__file__), 'xcleaner', '__init__.py')
     with open(version_file, encoding='utf-8') as f:
         for line in f:

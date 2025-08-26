@@ -133,6 +133,11 @@ jobs:
           git commit -m "Bump version to ${{ steps.get_version.outputs.version }}" || echo "No changes to commit"
           git push || echo "No changes to push"
 
+      - name: Clean dist directory
+        run: |
+          cd x-delete-posts
+          rm -rf dist/*
+
       - name: Build package
         run: |
           cd x-delete-posts
