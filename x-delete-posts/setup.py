@@ -7,7 +7,7 @@ def readme():
 
 setup(
     name="xcleaner",
-    version="0.1.2",
+    version="0.1.1",
     description="Delete all posts from your X (formerly Twitter) account.",
     long_description=readme(),
     long_description_content_type="text/markdown",
