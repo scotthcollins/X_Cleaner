@@ -1,3 +1,30 @@
+# VS Code settings (uncomment if you want to ignore workspace settings)
+# .vscode/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Python egg-info (sometimes missed)
+*.egg-info/
+
+# Test output
+test-output/
+
+# Logs
+*.log
+
+# Local dev tools
+.env.local
+.env.*.local
+
+# Coverage reports
+coverage/
+*.lcov
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

@@ -1,3 +1,149 @@
+  jobs:
+    setup-test:
+      strategy:
+        matrix:
+          os: [ubuntu-latest, windows-latest]
+      runs-on: ${{ matrix.os }}
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+        - name: Set up Python
+          uses: actions/setup-python@v5
+          with:
+            python-version: '3.11'
+        - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install -r x-delete-posts/requirements.txt
+        - name: Test application setup (import main modules)
+          run: |
+            PYTHONPATH=x-delete-posts python -c "import xcleaner.main; import xcleaner.delete_all_x_posts; import xcleaner.authenticate_x"
+          shell: bash
+    build:
+      strategy:
+        matrix:
+          os: [ubuntu-latest, windows-latest]
+      runs-on: ${{ matrix.os }}
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+        - name: Set up Python
+          uses: actions/setup-python@v5
+          with:
+            python-version: '3.11'
+        - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install -r x-delete-posts/requirements.txt
+    lint:
+      strategy:
+        matrix:
+          os: [ubuntu-latest, windows-latest]
+      runs-on: ${{ matrix.os }}
+      needs: build
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+        - name: Set up Python
+          uses: actions/setup-python@v5
+          with:
+            python-version: '3.11'
+        - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install -r x-delete-posts/requirements.txt
+            pip install pylint
+        - name: Run pylint
+          run: |
+            pylint x-delete-posts/xcleaner
+    test:
+      strategy:
+        matrix:
+          os: [ubuntu-latest, windows-latest]
+      runs-on: ${{ matrix.os }}
+      needs: lint
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+        - name: Set up Python
+          uses: actions/setup-python@v5
+          with:
+            python-version: '3.11'
+        - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install -r x-delete-posts/requirements.txt
+        - name: Run unit tests
+          run: |
+            PYTHONPATH=x-delete-posts python -m unittest discover -s x-delete-posts/tests
+          shell: bash
+    release:
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push' && needs.test.result == 'success'
+      needs: test
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+        - name: Set up Python
+          uses: actions/setup-python@v5
+          with:
+            python-version: '3.11'
+        - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install -r x-delete-posts/requirements.txt
+        - name: Bump version
+          run: |
+            python .github/bump_version.py
+        - name: Get new version
+          id: get_version
+          run: |
+            echo "version=$(python -c 'import sys; sys.path.insert(0, "x-delete-posts"); import xcleaner; print(xcleaner.__version__)')" >> $GITHUB_OUTPUT
+        - name: Commit version bump
+          run: |
+            git config user.name "github-actions"
+            git config user.email "github-actions@github.com"
+            git add x-delete-posts/setup.py x-delete-posts/xcleaner/__init__.py
+            git commit -m "Bump version to ${{ steps.get_version.outputs.version }}" || echo "No changes to commit"
+            git push || echo "No changes to push"
+        - name: Create Release
+          uses: softprops/action-gh-release@v2
+          with:
+            tag_name: v${{ steps.get_version.outputs.version }}
+            name: Release ${{ steps.get_version.outputs.version }}
+            generate_release_notes: true
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    upload-package:
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push' && needs.test.result == 'success'
+      needs: test
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+        - name: Set up Python
+          uses: actions/setup-python@v5
+          with:
+            python-version: '3.11'
+        - name: Install build tools
+          run: |
+            python -m pip install --upgrade pip
+            pip install build twine
+        - name: Bump version
+          run: |
+            python .github/bump_version.py
+        - name: Build package
+          run: |
+            cd x-delete-posts
+            python -m build
+        - name: Upload package to PyPI (disabled by default)
+          if: false  # Change to 'true' and set secrets for real PyPI upload
+          env:
+            TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+            TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+          run: |
+            cd x-delete-posts
+            python -m twine upload dist/*
 name: Build and Test
 on:
   push:
