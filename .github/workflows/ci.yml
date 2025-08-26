@@ -1,12 +1,39 @@
+on:
+
 name: Build and Test
 
-on:
+
   push:
   pull_request:
 
 jobs:
+  setup-test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r x-delete-posts/requirements.txt
+
+      - name: Test application setup (import main modules)
+        run: |
+          python -c "import xcleaner.main; import xcleaner.delete_all_x_posts; import xcleaner.authenticate_x"
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -22,7 +49,10 @@ jobs:
           pip install -r x-delete-posts/requirements.txt
 
   lint:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     needs: build
     steps:
       - name: Checkout code
@@ -44,7 +74,10 @@ jobs:
           pylint x-delete-posts/xcleaner
 
   test:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     needs: lint
     steps:
       - name: Checkout code
