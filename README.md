@@ -5,6 +5,10 @@
 
 Delete all posts from your X (formerly Twitter) account using a simple Python CLI.
 
+## Author
+Scott H. Collins  
+[LinkedIn](https://www.linkedin.com/in/scotthcollins/)
+
 ## Features
 - Delete all posts (tweets) from your X account using the X API
 - Credentials via environment variables or command line arguments
@@ -71,10 +75,6 @@ x-delete-posts/
 ├── setup.py
 └── README.md
 ```
-
-## Author
-Scott H. Collins  
-[LinkedIn](https://www.linkedin.com/in/scotthcollins/)
 
 ## Warning
 **This script will permanently delete all posts from your account. Use with caution!**
