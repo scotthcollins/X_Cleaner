@@ -1,7 +1,11 @@
 name: Build and Test
 on:
   push:
+    branches:
+      - main
   pull_request:
+    branches:
+      - main
 
 jobs:
   setup-test:
@@ -13,6 +17,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
+          ref: refs/heads/main
           fetch-depth: 0
           fetch-tags: true
 
@@ -39,6 +44,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
+          ref: refs/heads/main
           fetch-depth: 0
           fetch-tags: true
 
@@ -62,6 +68,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
+          ref: refs/heads/main
           fetch-depth: 0
           fetch-tags: true
 
@@ -90,6 +97,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
+          ref: refs/heads/main
           fetch-depth: 0
           fetch-tags: true
 
@@ -117,6 +125,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
+          ref: refs/heads/main
           fetch-depth: 0
           fetch-tags: true
 
