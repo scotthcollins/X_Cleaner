@@ -5,12 +5,20 @@ def readme():
     with open(os.path.join(os.path.dirname(__file__), 'README.md'), encoding='utf-8') as f:
         return f.read()
 
+def get_version():
+    version_file = os.path.join(os.path.dirname(__file__), 'xcleaner', '__init__.py')
+    with open(version_file, encoding='utf-8') as f:
+        for line in f:
+            if line.strip().startswith('__version__'):
+                delim = '"' if '"' in line else "'"
+                return line.split(delim)[1]
+    raise RuntimeError('Unable to find version string.')
+
 setup(
     name="xcleaner",
-    version="0.1.1",
+    version=get_version(),
     description="Delete all posts from your X (formerly Twitter) account.",
     long_description=readme(),
-    long_description_content_type="text/markdown",
     author="Scott H. Collins",
     author_email="scotthcollins@outlook.com",
     url="https://www.linkedin.com/in/scotthcollins/",
