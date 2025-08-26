@@ -118,6 +118,7 @@ jobs:
 
       - name: Bump version
         run: |
+          cd ${{ github.workspace }}
           python .github/bump_version.py
 
       - name: Get new version
