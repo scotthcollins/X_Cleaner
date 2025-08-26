@@ -20,7 +20,7 @@ import os
 import sys
 import argparse
 from authenticate_x import authenticate_x
-from delete_all_x_posts import delete_all_x_posts
+from delete_all_x_posts import delete_all_x_posts, delete_posts_from_json
 
 
 def get_args():
@@ -44,29 +44,6 @@ def get_x_credentials(args):
         sys.exit(1)
     return api_key, api_secret_key, access_token, access_token_secret
 
-def delete_posts_from_json(json_path, x_api=None):
-    import json
-    with open(json_path, encoding='utf-8') as jsonfile:
-        data = json.load(jsonfile)
-        # X archive JSON may be a list or a dict with a 'posts' key
-        posts = data.get('posts') if isinstance(data, dict) and 'posts' in data else data
-        for post in posts:
-            post_id = None
-            # X archive formats may vary
-            if isinstance(post, dict):
-                post_id = post.get('id') or post.get('id_str')
-                if not post_id and 'post' in post:
-                    post_id = post['post'].get('id') or post['post'].get('id_str')
-            if post_id and x_api:
-                try:
-                    print(f"Deleting post ID: {post_id}")
-                    x_api.destroy_status(post_id)
-                except Exception as e:
-                    print(f"Error deleting post ID {post_id}: {e}")
-            elif post_id:
-                print(f"Post ID: {post_id}")
-            else:
-                print(f"Post ID not found in entry: {post}")
 
 if __name__ == "__main__":
     args = get_args()
