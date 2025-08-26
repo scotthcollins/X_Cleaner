@@ -1,5 +1,8 @@
 
+
 # X_Cleaner
+
+![Build Status](https://github.com/scotthcollins/X_Cleaner/actions/workflows/ci.yml/badge.svg?branch=main)
 
 ![PyPI](https://img.shields.io/pypi/v/xcleaner?color=blue)
 
