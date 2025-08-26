@@ -1,10 +1,14 @@
-import pytest
-from xcleaner.authenticate_x import authenticate_x
+"""
+Unit tests for xcleaner.authenticate_x module.
+"""
 import sys
 import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from xcleaner.authenticate_x import authenticate_x
 
 
 def test_authenticate_x(monkeypatch):
+    """Test authenticate_x returns a DummyAPI instance with monkeypatched tweepy handlers."""
     class DummyAuth:
         pass
     class DummyAPI:

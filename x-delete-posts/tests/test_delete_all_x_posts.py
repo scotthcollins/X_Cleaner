@@ -1,11 +1,13 @@
-
-
+"""
+Unit tests for xcleaner.delete_all_x_posts module.
+"""
 import sys
 import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'xcleaner')))
-from delete_all_x_posts import delete_all_x_posts
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from xcleaner.delete_all_x_posts import delete_all_x_posts
 
 def test_delete_all_x_posts(monkeypatch):
+    """Test delete_all_x_posts deletes all posts using a DummyAPI."""
     class DummyAPI:
         def __init__(self):
             self.deleted = []
