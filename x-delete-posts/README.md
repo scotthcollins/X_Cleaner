@@ -1,81 +1,82 @@
-twitter-delete-posts
 
-# X Delete Posts
+# X Cleaner
 
-This project is a standalone Python script that allows users to delete all their X (formerly Twitter) posts. It utilizes the X API to authenticate the user, retrieve their posts, and delete them as needed.
+Delete all posts from your X (formerly Twitter) account using a simple Python CLI.
+
 
 ## Project Structure
 
 ```
 x-delete-posts/
-├── .venv/
-├── authenticate_x.py
-├── delete_all_x_posts.py
-├── main.py
+├── xcleaner/
+│   ├── __init__.py
+│   ├── authenticate_x.py
+│   ├── delete_all_x_posts.py
+│   └── main.py
+├── tests/
+│   └── test_*.py
 ├── requirements.txt
+├── setup.py
 └── README.md
 ```
 
+
 ## Requirements
 
-Before running the script, ensure you have the following:
-
-- Python 3.x installed on your machine.
-- An X Developer account and a project set up to obtain your API keys.
-
+- Python 3.11 or newer
+- An X (Twitter) Developer account and API keys
 
 ## Installation
 
-You can install this application locally as a package:
+Install from PyPI (recommended):
 
-```bash
+```sh
+pip install xcleaner
+```
+
+Or install locally for development:
+
+```sh
 pip install .
 ```
 
-## Setup Instructions
-
-1. **Clone the repository:**
-
-   ```bash
-   git clone <repository-url>
-   cd x-delete-posts
-   ```
-
-2. **Create a virtual environment:**
-
-   ```bash
-   python -m venv .venv
-   ```
-
-3. **Activate the virtual environment:**
-
-   - On Windows:
-     ```bash
-     .venv\Scripts\activate
-     ```
-   - On macOS/Linux:
-     ```bash
-     source .venv/bin/activate
-     ```
-
-4. **Install the required dependencies:**
-
-   ```bash
-   pip install -r requirements.txt
-   ```
 
 ## Usage
 
-You can run the application from anywhere using the CLI:
+After installing, you can use the CLI tool:
 
-```bash
+```sh
 xcleaner --api-key <your_key> --api-secret-key <your_secret> --access-token <your_token> --access-token-secret <your_token_secret>
 ```
 
 Or set your credentials as environment variables and simply run:
 
-```bash
+```sh
 xcleaner
 ```
 
-**Warning:** This script will permanently delete all your posts. Use with caution!
+Environment variables:
+
+```sh
+# On Windows (PowerShell)
+$env:X_API_KEY="your_api_key"
+$env:X_API_SECRET_KEY="your_api_secret_key"
+$env:X_ACCESS_TOKEN="your_access_token"
+$env:X_ACCESS_TOKEN_SECRET="your_access_token_secret"
+xcleaner
+
+# On macOS/Linux
+export X_API_KEY="your_api_key"
+export X_API_SECRET_KEY="your_api_secret_key"
+export X_ACCESS_TOKEN="your_access_token"
+export X_ACCESS_TOKEN_SECRET="your_access_token_secret"
+xcleaner
+```
+
+You can also delete posts from a JSON archive:
+
+```sh
+xcleaner --json path/to/posts.json [--api-key ...]
+```
+
+**Warning:** This script will permanently delete all posts from your account. Use with caution!
