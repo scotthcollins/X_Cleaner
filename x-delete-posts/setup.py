@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="xcleaner",
-    version="0.1.0",
+    version="0.1.1",
     description="Delete all posts from your X (formerly Twitter) account.",
     author="Scott H. Collins",
     author_email="scotthcollins@outlook.com",
