@@ -137,7 +137,7 @@ jobs:
       - name: Clean dist directory
         run: |
           cd x-delete-posts
-          if [ -d dist ]; then rm -rf dist/*; fi
+          python -c "import shutil, os; d='dist'; shutil.rmtree(d) if os.path.exists(d) else None"
 
       - name: Build package
         run: |
