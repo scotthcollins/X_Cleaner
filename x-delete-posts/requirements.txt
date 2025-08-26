@@ -1,3 +1,4 @@
 tweepy==4.10.0
  # This package is used for interacting with the Twitter API
 python-dotenv==1.0.0
+pytest==7.4.0
