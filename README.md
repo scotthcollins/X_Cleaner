@@ -7,6 +7,21 @@
 Scott H. Collins  
 [LinkedIn](https://www.linkedin.com/in/scotthcollins/)
 
+## Versioning & Release Workflow
+
+This project uses automated version bumping in CI. To ensure versions are always correct and PyPI uploads succeed:
+
+1. **Do not manually edit the version in `xcleaner/__init__.py` or `setup.py`.**
+2. After a successful PyPI release, always create and push a new git tag matching the released version:
+	```sh
+	git tag vX.Y.Z
+	git push --tags
+	```
+	Replace `X.Y.Z` with the version you just released.
+3. The CI workflow and `.github/bump_version.py` script will handle version bumps for future releases.
+
+If you need to force a new version, create and push a new tag with the next version number.
+
 ## Installation from PyPI
 
 You can install the latest release directly from PyPI:
