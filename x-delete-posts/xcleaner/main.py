@@ -48,7 +48,7 @@ def get_x_credentials(parsed_args):
     access_token_secret = parsed_args.access_token_secret or os.getenv('X_ACCESS_TOKEN_SECRET')
     # Validate that none are null or empty
     if not all([api_key, api_secret_key, access_token, access_token_secret]):
-        print("Error: All X API credentials must be provided via environment variables or command line arguments.")
+        print("Error: All X API credentials must be provided via environment variables or command line arguments.")  # noqa: E501
         sys.exit(1)
     return api_key, api_secret_key, access_token, access_token_secret
 
@@ -70,7 +70,7 @@ def main():
             x_api = authenticate_x(api_key, api_secret_key, access_token, access_token_secret)
             delete_posts_from_json(parsed_args.json, x_api)
         else:
-            print("No API credentials provided. Listing post IDs from JSON:")
+            print("No API credentials provided. Listing post IDs from JSON:")  # noqa: E501
             delete_posts_from_json(parsed_args.json, x_api=None)
     else:
         api_key, api_secret_key, access_token, access_token_secret = get_x_credentials(parsed_args)
@@ -80,4 +80,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
