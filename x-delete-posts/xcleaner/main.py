@@ -69,7 +69,8 @@ def main():
             os.getenv('X_API_KEY'), os.getenv('X_API_SECRET_KEY'),
             os.getenv('X_ACCESS_TOKEN'), os.getenv('X_ACCESS_TOKEN_SECRET')
         ]):
-            api_key, api_secret_key, access_token, access_token_secret = get_x_credentials(parsed_args)
+            api_key, api_secret_key, access_token, access_token_secret = \
+                get_x_credentials(parsed_args)
             x_api = authenticate_x(
                 api_key, api_secret_key, access_token, access_token_secret
             )
@@ -93,5 +94,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-

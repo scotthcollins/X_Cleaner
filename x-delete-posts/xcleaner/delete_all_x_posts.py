@@ -23,7 +23,10 @@ def delete_all_x_posts(api):
         posts = api.user_timeline(count=200, tweet_mode='extended')
 
 def delete_posts_from_json(json_path, x_api=None):
-    """Delete posts from a JSON archive file using the API, or print post IDs if no API is provided."""
+    """
+    Delete posts from a JSON archive file using the API, 
+    or print post IDs if no API is provided.
+    """
     with open(json_path, encoding='utf-8') as jsonfile:
         data = json.load(jsonfile)
         # X archive JSON may be a list or a dict with a 'posts' key
