@@ -137,7 +137,7 @@ jobs:
       - name: Clean dist directory
         run: |
           cd x-delete-posts
-          rm -rf dist/*
+          if [ -d dist ]; then rm -rf dist/*; fi
 
       - name: Build package
         run: |
