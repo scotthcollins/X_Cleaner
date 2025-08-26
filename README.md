@@ -5,7 +5,7 @@
 
 ## Author
 Scott H. Collins  
-[LinkedIn](www.linkedin.com/in/scott-h-collins)
+[LinkedIn](https://www.linkedin.com/in/scott-h-collins)
 
 ## Versioning & Release Workflow
 
